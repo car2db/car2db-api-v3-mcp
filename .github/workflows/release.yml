@@ -25,7 +25,7 @@ jobs:
         run: npm install -g @anthropic-ai/mcpb
 
       - name: Pack MCPB bundle
-        run: mcpb pack --output car2db-api-v3-mcp.mcpb
+        run: mcpb pack . car2db-api-v3-mcp.mcpb
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
