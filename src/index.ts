@@ -18,10 +18,18 @@ function validateEnv(): {
   const apiKey = process.env.CAR2DB_API_KEY;
 
   if (!apiKey || apiKey.trim() === '') {
-    console.error('ERROR: CAR2DB_API_KEY environment variable is required');
-    console.error('Get your API key at: https://car2db.com/api/');
-    console.error('Demo key available at: https://car2db.com/api-token-demo/');
-    process.exit(1);
+    // Use demo key if not provided
+    const demoKey = 'demo_key_limited_access';
+    console.error('⚠️  WARNING: CAR2DB_API_KEY not set, using demo key with limited access');
+    console.error('   Get your own API key at: https://car2db.com/api/');
+    console.error('   Or try demo key at: https://car2db.com/api-token-demo/');
+    console.error('');
+    return {
+      apiKey: demoKey,
+      language: process.env.CAR2DB_LANGUAGE || 'en-US',
+      transport: (process.env.MCP_TRANSPORT || 'stdio') as 'stdio' | 'sse',
+      ssePort: parseInt(process.env.MCP_SSE_PORT || '3000', 10)
+    };
   }
 
   const language = process.env.CAR2DB_LANGUAGE || 'en-US';

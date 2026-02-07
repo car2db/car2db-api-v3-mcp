@@ -1,0 +1,135 @@
+{
+  "manifest_version": "0.3",
+  "name": "@car2db/mcp-server",
+  "display_name": "Car2DB API v3",
+  "version": "3.0.1",
+  "description": "Search and browse vehicle specifications from Car2DB — makes, models, trims, equipment and full technical data",
+  "author": {
+    "name": "Car2DB",
+    "email": "support@car2db.com",
+    "url": "https://car2db.com"
+  },
+  "homepage": "https://car2db.com/api/",
+  "documentation": "https://github.com/car2db/car2db-api-v3-mcp",
+  "support": "https://t.me/car2db_support_bot",
+  "icon": "assets/icons/car2db-light.png",
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "CAR2DB_API_KEY": "${user_config.api_key}",
+        "CAR2DB_LANGUAGE": "${user_config.language}",
+        "MCP_TRANSPORT": "stdio"
+      }
+    }
+  },
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "API Key",
+      "description": "Your Car2DB API key (optional, demo key will be used if not provided). Get your key at https://car2db.com/api/ or try demo at https://car2db.com/api-token-demo/",
+      "sensitive": true,
+      "required": false,
+      "default": ""
+    },
+    "language": {
+      "type": "string",
+      "title": "Language",
+      "description": "Response language: en-US, ru-RU, de-DE, es-ES, it-IT, pl-PL, fr-FR, da-DA, lv-LV, th-TH, zh-CN",
+      "default": "en-US",
+      "required": false
+    }
+  },
+  "prompts": [
+    {
+      "name": "find_vehicle",
+      "description": "Search for a specific vehicle by make, model and year",
+      "arguments": ["query"],
+      "text": "Find and show me detailed information about: ${arguments.query}. Use search_vehicles tool to find the vehicle, then get_trim_full to show complete specifications."
+    },
+    {
+      "name": "compare_vehicles",
+      "description": "Compare technical specifications of two vehicles",
+      "arguments": ["vehicle1", "vehicle2"],
+      "text": "Compare these two vehicles and show me the key differences in engine, performance, dimensions and features:\n1. ${arguments.vehicle1}\n2. ${arguments.vehicle2}\n\nUse search_vehicles to find both vehicles, then get_trim_full for each to compare their specifications."
+    },
+    {
+      "name": "vehicle_specs",
+      "description": "Get detailed technical specifications for a vehicle",
+      "arguments": ["vehicle"],
+      "text": "Show me complete technical specifications for: ${arguments.vehicle}. Include engine details, performance, transmission, dimensions, and available equipment packages. Use search_vehicles and get_trim_full tools."
+    },
+    {
+      "name": "browse_make",
+      "description": "Browse all models and generations for a specific manufacturer",
+      "arguments": ["make"],
+      "text": "Show me all models and their generations available from ${arguments.make}. Use browse_catalog tool starting with makes level to navigate through the manufacturer's lineup."
+    },
+    {
+      "name": "vehicles_by_year",
+      "description": "Find all vehicles available for a specific production year",
+      "arguments": ["year"],
+      "text": "Show me all vehicle makes and models that were produced in ${arguments.year}. Use get_year_vehicles tool to retrieve the information."
+    }
+  ],
+  "tools": [
+    {
+      "name": "search_vehicles",
+      "description": "Natural language vehicle search"
+    },
+    {
+      "name": "get_trim_full",
+      "description": "Complete trim specifications"
+    },
+    {
+      "name": "get_equipment_full",
+      "description": "Full equipment/package details"
+    },
+    {
+      "name": "browse_catalog",
+      "description": "Navigate makes→models→generations→series→trims→equipments"
+    },
+    {
+      "name": "list_makes",
+      "description": "List all manufacturers"
+    },
+    {
+      "name": "list_models",
+      "description": "List models by make"
+    },
+    {
+      "name": "list_generations",
+      "description": "List generations by model"
+    },
+    {
+      "name": "list_series",
+      "description": "List series by generation"
+    },
+    {
+      "name": "list_trims",
+      "description": "List trims by series"
+    },
+    {
+      "name": "get_year_vehicles",
+      "description": "Vehicles by production year"
+    }
+  ],
+  "keywords": [
+    "mcp",
+    "car2db",
+    "car",
+    "vehicle",
+    "automotive",
+    "api"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/car2db/car2db-api-v3-mcp.git"
+  }
+}

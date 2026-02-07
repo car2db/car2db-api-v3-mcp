@@ -81,20 +81,36 @@ Or use npx for zero-install:
 
 ## Installation Options
 
-### 1. npx (Recommended - Zero Install)
+### 1. MCPB Package (One-Click Install)
+
+Download the pre-built MCPB extension for easy installation in Claude Desktop or other MCP clients:
+
+**[Download car2db-api-v3-mcp.mcpb](https://github.com/car2db/car2db-api-v3-mcp/releases/latest/download/car2db-api-v3-mcp.mcpb)**
+
+MCPB is a ZIP archive containing a local MCP server and `manifest.json` describing the server and its capabilities — just download and install with one click.
+
+#### Installation Steps:
+1. Download the `.mcpb` file from GitHub releases
+2. Double-click the file or drag it into your MCP client
+3. Configure your API key in the setup dialog (optional, demo key will be used if not provided)
+4. Click "Install" and start using the extension
+
+**GitHub Releases:** https://github.com/car2db/car2db-api-v3-mcp/releases
+
+### 2. npx (Zero Install)
 
 ```bash
 npx @car2db/mcp-server
 ```
 
-### 2. Global npm Installation
+### 3. Global npm Installation
 
 ```bash
 npm install -g @car2db/mcp-server
 car2db-mcp
 ```
 
-### 3. Local Development
+### 4. Local Development
 
 ```bash
 git clone https://github.com/car2db/car2db-api-v3-mcp.git
@@ -104,7 +120,7 @@ npm run build
 npm start
 ```
 
-### 4. Docker (for SSE mode)
+### 5. Docker (for SSE mode)
 
 ```bash
 docker-compose up -d
