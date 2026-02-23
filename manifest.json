@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "@car2db/mcp-server",
   "display_name": "Car2DB API v3",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Search and browse vehicle specifications from Car2DB — makes, models, trims, equipment and full technical data",
   "author": {
     "name": "Car2DB",
