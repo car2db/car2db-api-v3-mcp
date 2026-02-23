@@ -23,6 +23,7 @@
       ],
       "env": {
         "CAR2DB_API_KEY": "${user_config.api_key}",
+        "CAR2DB_REFERER": "${user_config.referer}",
         "CAR2DB_LANGUAGE": "${user_config.language}",
         "MCP_TRANSPORT": "stdio"
       }
@@ -35,6 +36,13 @@
       "description": "Your Car2DB API key (optional, demo key will be used if not provided). Get your key at https://car2db.com/api/ or try demo at https://car2db.com/api-token-demo/",
       "sensitive": true,
       "required": false,
+      "default": ""
+    },
+    "referer": {
+      "type": "string",
+      "title": "Referer URL",
+      "description": "The URL of your project or site (e.g. https://yourproject.com). Required by the Car2DB API — must match the URL registered with your API key.",
+      "required": true,
       "default": ""
     },
     "language": {

@@ -6,7 +6,10 @@ services:
     environment:
       # Required: Get your API key at https://car2db.com/api/
       - CAR2DB_API_KEY=${CAR2DB_API_KEY}
-      
+
+      # Required: URL of your project/site (must match the URL registered with your API key)
+      - CAR2DB_REFERER=${CAR2DB_REFERER}
+
       # Optional: Language for API responses (default: en-US)
       # Available: en-US, ru-RU, de-DE, es-ES, it-IT, pl-PL, fr-FR, da-DA, lv-LV, th-TH, zh-CN
       - CAR2DB_LANGUAGE=${CAR2DB_LANGUAGE:-en-US}

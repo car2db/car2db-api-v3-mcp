@@ -28,6 +28,7 @@ Add to your `claude_desktop_config.json`:
       "args": ["-y", "@car2db/mcp-server"],
       "env": {
         "CAR2DB_API_KEY": "your_api_key_here",
+        "CAR2DB_REFERER": "https://yourproject.com",
         "CAR2DB_LANGUAGE": "en-US"
       }
     }
@@ -35,7 +36,7 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-**Get your API key:** https://car2db.com/api/  
+**Get your API key:** https://car2db.com/api/
 **Try demo key:** https://car2db.com/api-token-demo/
 
 ### GitHub Copilot Configuration
@@ -50,7 +51,7 @@ For GitHub Copilot, use the `.vscode/mcp.json` configuration file in your projec
       "args": ["dist/index.js"],
       "env": {
         "CAR2DB_API_KEY": "your_api_key_here",
-
+        "CAR2DB_REFERER": "https://yourproject.com",
         "CAR2DB_LANGUAGE": "en-US",
         "MCP_TRANSPORT": "stdio"
       }
@@ -69,6 +70,7 @@ Or use npx for zero-install:
       "args": ["-y", "@car2db/mcp-server"],
       "env": {
         "CAR2DB_API_KEY": "your_api_key_here",
+        "CAR2DB_REFERER": "https://yourproject.com",
         "CAR2DB_LANGUAGE": "en-US"
       }
     }
@@ -132,6 +134,7 @@ Or manually:
 docker build -t car2db-mcp .
 docker run -p 3000:3000 \
   -e CAR2DB_API_KEY=your_key \
+  -e CAR2DB_REFERER=https://yourproject.com \
   car2db-mcp
 ```
 
@@ -142,14 +145,22 @@ docker run -p 3000:3000 \
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `CAR2DB_API_KEY` | ✅ | — | Bearer token for API authorization. Get it at [car2db.com/api](https://car2db.com/api/) |
+| `CAR2DB_REFERER` | ✅ | — | URL of your project/site (e.g. `https://yourproject.com`). Must match the URL registered with your API key. |
 | `CAR2DB_LANGUAGE` | ❌ | `en-US` | API response language: `en-US`, `ru-RU`, `de-DE`, `es-ES`, `it-IT`, `pl-PL`, `fr-FR`, `da-DA`, `lv-LV`, `th-TH`, `zh-CN` |
 | `MCP_TRANSPORT` | ❌ | `stdio` | Transport mode: `stdio` (Claude Desktop/Cursor) or `sse` (HTTP Server-Sent Events) |
 | `MCP_SSE_PORT` | ❌ | `3000` | Port for SSE mode (only used when `MCP_TRANSPORT=sse`) |
+
+### Referer header
+
+The Car2DB API requires a `Referer` header in every request. Set `CAR2DB_REFERER` to the URL of the project or site that uses this MCP server. This URL must match the one registered with your API key on [car2db.com](https://car2db.com/api/).
+
+If `CAR2DB_REFERER` is not set, a warning is printed at startup and API requests will fail with `403 Forbidden`.
 
 ### Example .env file
 
 ```bash
 CAR2DB_API_KEY=your_api_key_here
+CAR2DB_REFERER=https://yourproject.com
 CAR2DB_LANGUAGE=en-US
 MCP_TRANSPORT=stdio
 ```

@@ -11,11 +11,20 @@ import { createMcpServer } from './server.js';
  */
 function validateEnv(): {
   apiKey: string;
+  referer: string;
   language: string;
   transport: 'stdio' | 'sse';
   ssePort: number;
 } {
   const apiKey = process.env.CAR2DB_API_KEY;
+  const referer = process.env.CAR2DB_REFERER || '';
+
+  if (!referer || referer.trim() === '') {
+    console.error('⚠️  WARNING: CAR2DB_REFERER not set');
+    console.error('   The Referer header is required by the Car2DB API.');
+    console.error('   Set CAR2DB_REFERER to the URL of your project, e.g.: https://yourproject.com');
+    console.error('');
+  }
 
   if (!apiKey || apiKey.trim() === '') {
     // Use demo key if not provided
@@ -26,6 +35,7 @@ function validateEnv(): {
     console.error('');
     return {
       apiKey: demoKey,
+      referer,
       language: process.env.CAR2DB_LANGUAGE || 'en-US',
       transport: (process.env.MCP_TRANSPORT || 'stdio') as 'stdio' | 'sse',
       ssePort: parseInt(process.env.MCP_SSE_PORT || '3000', 10)
@@ -48,7 +58,7 @@ function validateEnv(): {
     process.exit(1);
   }
 
-  return { apiKey, language, transport, ssePort };
+  return { apiKey, referer, language, transport, ssePort };
 }
 
 /**
@@ -112,7 +122,7 @@ async function main(): Promise<void> {
     // Creating API client
     const apiClient = new Car2DBApiClient(
       config.apiKey,
-      undefined,
+      config.referer,
       config.language
     );
 
