@@ -13,6 +13,8 @@ dist/
 .idea/
 *.swp
 *.swo
+.claude
+.agents/
 
 # OS
 .DS_Store
